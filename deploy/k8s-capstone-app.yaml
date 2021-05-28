@@ -120,5 +120,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: wallet-svc
+          serviceName: wallet-service
           servicePort: 80
