@@ -1,19 +1,22 @@
 # capstoneWallet Project
 
-1- Explanation
+## Explanation
 
 This project runs a demo wallet application in a kubernetes cluster (EKS) with mysql databases in a replicated stateful set.
 
-2- Environment and tools
+## Environment and tools
 
 	. AWS (EKS)
-
 	. Terraforms
-
 	. Python
-
 	. Ingress nginx
 
-3- Architecture
+## Architecture
 
 ![Project architecture](https://github.com/brunoguidone/capstoneWallet/blob/main/architecture/Wallet-Architecture.png?raw=true)
+
+## Languages and Resources
+
+	. Python (Flask, SQL Alchemy)
+	. HTML
+	. MYSQL
