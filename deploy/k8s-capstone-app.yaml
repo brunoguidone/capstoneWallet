@@ -1,24 +1,12 @@
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: wallet-secrets
-  namespace: wallet
-type: Opaque
-data:
-  username: cm9vdA==
-  password: TXlTcWwyMDE5IQ==
-
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wallet
   namespace: wallet
   labels:
-    app: "wallet"
-    project: "capstone"
+    app: wallet
+    project: capstone
 spec:
   strategy:
     type: RollingUpdate
@@ -28,21 +16,19 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "wallet"
-      project: "capstone"
+      app: wallet
+      project: capstone
   template:
     metadata:
+      namespace: wallet
       labels:
-        app: "wallet"
-        project: "capstone"
+        app: wallet
+        project: capstone
     spec:
       containers:
       - name: wallet
-        image: brunoguidone/wallet:latest
-        imagePullPolicy: IfNotPresent
-        envFrom:
-            - secretRef:
-               name: wallet-secrets
+        image: brunoguidone/wallet
+        imagePullPolicy: Always
         ports:
             - containerPort: 5000
         resources:
@@ -51,9 +37,7 @@ spec:
             cpu: "150m"
           limits:
             memory: "200Mi"
-            cpu: "200m"
-
-
+            cpu: "300m"
 
 ---
 apiVersion: autoscaling/v2beta2
@@ -62,8 +46,8 @@ metadata:
   namespace: wallet
   name: wallet-hpa
   labels:
-    app: "wallet"
-    project: "capstone"
+    app: wallet
+    project: capstone
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -89,19 +73,19 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-   namespace: wallet
-   name: wallet-svc
-   labels:
-    app: "wallet"
-    project: "capstone"
+  namespace: wallet
+  name: wallet-svc
+  labels:
+    app: wallet
+    project: capstone
 spec:
-   selector:
-    app: "wallet"
-    project: "capstone"
-   ports:
-   - port: 80
-     targetPort: 5000
-   type: ClusterIP
+  selector:
+    app: wallet
+    project: capstone
+  ports:
+  - port: 80
+    targetPort: 5000
+  type: ClusterIP
 
 ---
 apiVersion: networking.k8s.io/v1beta1
