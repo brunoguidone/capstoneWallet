@@ -8,7 +8,7 @@ app = Flask(__name__)
 secret_key = secrets.token_hex(16)
 app.secret_key = secret_key
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@mysql/mysql'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@mysql-0.mysql/mysql'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -27,6 +27,7 @@ class Data(db.Model):
 
 @app.route('/')
 def Index():
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@mysql/mysql'
     all_data = Data.query.all()
 
     total = 0
@@ -39,7 +40,6 @@ def Index():
 @app.route('/insert', methods=['POST'])
 def insert():
     if request.method == 'POST':
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@mysql-0.mysql/mysql'
         name = request.form['name']
         amount = request.form['amount']
         transaction_type = "(C) Credit"
@@ -56,7 +56,6 @@ def insert():
 @app.route('/withdraw', methods=['POST'])
 def withdraw():
     if request.method == 'POST':
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@mysql-0.mysql/mysql'
         name = request.form['name']
         amount = request.form['amount']
         transaction_type = "(S) Payment"

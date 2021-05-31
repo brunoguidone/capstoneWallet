@@ -39,6 +39,7 @@ spec:
       containers:
       - name: wallet
         image: brunoguidone/wallet:latest
+        imagePullPolicy: IfNotPresent
         envFrom:
             - secretRef:
                name: wallet-secrets
