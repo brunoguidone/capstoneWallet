@@ -8,6 +8,7 @@ app = Flask(__name__)
 secret_key = secrets.token_hex(16)
 app.secret_key = secret_key
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@mysql/mysql'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -26,7 +27,6 @@ class Data(db.Model):
 
 @app.route('/')
 def Index():
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@mysql/mysql'
     all_data = Data.query.all()
 
     total = 0
