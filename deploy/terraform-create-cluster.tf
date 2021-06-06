@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-west-2"
+  region = "us-west-1"
 }
 
 data "aws_eks_cluster" "cluster" {
@@ -22,8 +22,8 @@ module "eks-labguidone" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "eks-labguidone"
   cluster_version = "1.18"
-  subnets         = ["subnet-50f62c1a", "subnet-162a936e", "subnet-df8f0482"]
-  vpc_id          = "vpc-3686aa4e"
+  subnets         = ["subnet-15c96c4f", "subnet-c4b33aa2"]
+  vpc_id          = "vpc-0ebb6568"
 
   worker_groups = [
     {
